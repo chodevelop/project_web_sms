@@ -64,17 +64,17 @@
           <button type="button" class="btn btn-primary" id="addBtn"> 등 록 </button>
         </div>
         <div class="col-auto">
-          <button type="button" class="btn btn-warning"> 삭 제 </button>
+          <button type="button" class="btn btn-warning" id="deleteBtn"> 삭 제 </button>
         </div>
       </div>
     </form>
     <hr>
     <div class="row mt-4 mb-2">
-      <div class="col-6">
+      <div class="col-6" id="search">
         <div class="row">
           <div class="col-2">
             <select class="form-select">
-              <option value="ssn" selected>번호</option>
+              <option value="sno" selected>번호</option>
               <option value="name">이름</option>
             </select>
           </div>
@@ -94,8 +94,8 @@
           </div>
           <div class="col-3">
             <select class="form-select" id="sortSelect">
-              <option selected>순위</option>
-              <option value="ssn">번호</option>
+              <option selected value="rank">순위</option>
+              <option value="sno">번호</option>
               <option value="name">이름</option>
             </select>
           </div>
@@ -119,76 +119,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>4</td>
-              <td>수요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>금요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>2</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>월요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>일요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>토요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>화요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>목요일</td>
-              <td>95</td>
-              <td>90</td>
-              <td>100</td>
-              <td>285</td>
-              <td>95.0</td>
-              <td>6</td>
-            </tr>
+            <!-- 동적 생성 구간 -->
           </tbody>
         </table>
       </div>

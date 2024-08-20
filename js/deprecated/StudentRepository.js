@@ -1,8 +1,11 @@
-import Student from "./Student.js";
 
-class StudentRepository{
+//이거 왜 씀??????
+import Student from "../module/Student.js"
+import storage from "../module/Storage.js"
+
+export default class StudentRepository{
     constructor(){
-        this.students = [];
+        this.storage = storage;
     }
 
     addStudent(student){
@@ -26,10 +29,4 @@ class StudentRepository{
     // }
 
 
-}
-
-const studentRepository = new StudentRepository();
-
-export{
-    studentRepository,
 }
