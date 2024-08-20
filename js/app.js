@@ -13,5 +13,3 @@ storage.loadLocalStorage();
 // storage.saveLocalStorage();
 
 eventHandler.updateList();
-
-

@@ -38,4 +38,6 @@ export default class Validator {
         }
         return true;
     }
+
+    // wildCardSearch(){} // 검색 와일드 카드 적용해볼 필요 있음.
 }
