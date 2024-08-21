@@ -15,7 +15,7 @@ class EventHandler {
         this.addBtn = document.querySelector("#addBtn");
         this.searchBtn = document.querySelector("#search button");
         this.deleteBtn = document.querySelector("#deleteBtn");
-        
+
         this.validator = new Validator(this);
 
         this.addBtn.addEventListener("click", async () => {
@@ -45,12 +45,14 @@ class EventHandler {
             const input = document.querySelector("#search input").value.trim();
 
             this.updateList();
-
             let result = [];
             if (select.value === "sno") {
-                result = storage.students.filter(student => student.sno === parseInt(input));
+                result = storage.students
+                    .filter(student => student.sno === parseInt(input));
             } else if (select.value === "name") {
-                result = storage.students.filter(student => student.sname === input);
+                result = (input => storage.students.filter(
+                    student => student.sname.includes(input)
+                ))(input);
             }
 
             if (input === "") {
