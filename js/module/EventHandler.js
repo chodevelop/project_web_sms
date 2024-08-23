@@ -1,8 +1,8 @@
-import storage from "./Storage.js";
+import { storage } from "./Storage.js";
 import Student from "./Student.js";
 import Validator from "./Validator.js";
 
-class EventHandler {
+export default class EventHandler {
     constructor() {
         this.sno = document.querySelector("input[name=sno]");
         this.sname = document.querySelector("input[name=sname]");
@@ -16,10 +16,8 @@ class EventHandler {
         this.searchBtn = document.querySelector("#search button");
         this.deleteBtn = document.querySelector("#deleteBtn");
 
-        this.validator = new Validator(this);
-
-        this.addBtn.addEventListener("click", async () => {
-            if (this.validator.addBtnValidation()) {
+        this.addBtn.addEventListener("click", () => {
+            if (Validator.addBtnValidation(this)) {
                 storage.addStudent(new Student(
                     parseInt(this.sno.value),
                     this.sname.value,
@@ -32,19 +30,18 @@ class EventHandler {
             }
         });
 
-        this.deleteBtn.addEventListener("click", async () => {
-            if (this.validator.deleteBtnValidation()) {
+        this.deleteBtn.addEventListener("click", () => {
+            if (Validator.deleteBtnValidation()) {
                 storage.deleteStudent(parseInt(this.sno.value));
                 this.updateList();
                 storage.saveLocalStorage();
             }
         });
 
-        this.searchBtn.addEventListener("click", async () => {
+        this.searchBtn.addEventListener("click", () => {
             const select = document.querySelector("#search select");
             const input = document.querySelector("#search input").value.trim();
 
-            this.updateList();
             let result = [];
             if (select.value === "sno") {
                 result = storage.students
@@ -59,28 +56,20 @@ class EventHandler {
                 result = [...storage.getStudents()];
             }
 
-            this.table.innerHTML = "";  // 기존 테이블을 비웁니다.
-
-            for (const student of result) {
-                const inputArray = [
-                    student.sno,
-                    student.sname,
-                    student.korean,
-                    student.english,
-                    student.math,
-                    student.getTotal(),
-                    student.getAverage(),
-                    student.rank,
-                ];
-
-                const tr = document.createElement("tr");
-                for (const element of inputArray) {
-                    const td = document.createElement("td");
-                    td.innerText = element;
-                    tr.append(td);
-                }
-                this.table.append(tr);
-            }
+            /* 아름다운 매핑 방식*/
+            this.table.innerHTML =
+                result.map(student =>
+                    `<tr>
+                        <td>${student.sno}</td>
+                        <td>${student.sname}</td>
+                        <td>${student.korean}</td>
+                        <td>${student.english}</td>
+                        <td>${student.math}</td>
+                        <td>${student.getTotal()}</td>
+                        <td>${student.getAverage()}</td>
+                        <td>${student.rank}</td>
+                    </tr>`
+                ).join("");
         });
     }
 
@@ -101,33 +90,19 @@ class EventHandler {
                 storage.updateRank();
         }
 
-        this.table.innerHTML = "";
-
-        for (const student of storage.getStudents()) {
-            //inputArray는 object의 value 값을 array로 바꾸어 순서 보장을 위한 것임. 
-            //더 우아하게 바꿀 수 있는 방법을 찾는 중!!
-            const inputArray = [
-                student.sno,
-                student.sname,
-                student.korean,
-                student.english,
-                student.math,
-                student.getTotal(),
-                student.getAverage(),
-                student.rank,
-            ];
-
-            const tr = document.createElement("tr");
-            for (const element of inputArray) {
-                const td = document.createElement("td");
-                td.innerText = element;
-                tr.append(td);
-            }
-            this.table.append(tr);
-        }
+        /* 아름다운 매핑 방식*/
+        this.table.innerHTML =
+            storage.students.map(student =>
+                `<tr>
+                    <td>${student.sno}</td>
+                    <td>${student.sname}</td>
+                    <td>${student.korean}</td>
+                    <td>${student.english}</td>
+                    <td>${student.math}</td>
+                    <td>${student.getTotal()}</td>
+                    <td>${student.getAverage()}</td>
+                    <td>${student.rank}</td>
+                </tr>`
+            ).join("");
     }
 }
-
-let eventHandler = new EventHandler();
-
-export default eventHandler;

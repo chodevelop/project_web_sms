@@ -1,7 +1,7 @@
-import eventHandler from "./module/EventHandler.js";
-import storage from "./module/Storage.js";
+import EventHandler from "./module/EventHandler.js";
+import { storage } from "./module/Storage.js";
 
-
+const eventHandler = new EventHandler();
 storage.loadLocalStorage();
 
 // /* 테스트를 위한 더미데이터 입력 */

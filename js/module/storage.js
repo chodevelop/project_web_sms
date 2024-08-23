@@ -34,20 +34,20 @@ class Storage {
         });
     }
 
-    sortByRank() {
+    sortByTotal() {
         this.students.sort(function (a, b) {
             return parseInt(b.getTotal()) - parseInt(a.getTotal()); // 이 방식이 더 간결하고 안전함
         });
     }
 
     updateRank() {
-        this.sortByRank();
+        this.sortByTotal();
         //순위 갱신 반복문
         for (let i = 0, rank = 1; i < this.students.length; i++, rank++) {
             this.students[i].rank = rank;
         }
         this.saveLocalStorage();
-    }
+    }//동점자 처리 알고리즘 필요
 
     saveLocalStorage() {
         if (!localStorage) {
@@ -75,6 +75,4 @@ class Storage {
     }
 }
 
-const storage = new Storage();
-
-export default storage;
+export const storage = new Storage();
