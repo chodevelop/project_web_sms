@@ -1,4 +1,4 @@
-import Storage from "./Storage.js";
+import { storage } from "./Storage.js";
 import Student from "./Student.js";
 import Validator from "./Validator.js";
 
@@ -18,7 +18,7 @@ export default class EventHandler {
 
         this.addBtn.addEventListener("click", () => {
             if (Validator.addBtnValidation(this)) {
-                Storage.addStudent(new Student(
+                storage.addStudent(new Student(
                     parseInt(this.sno.value),
                     this.sname.value,
                     parseInt(this.korean.value),
@@ -26,15 +26,15 @@ export default class EventHandler {
                     parseInt(this.english.value)
                 ));
                 this.sortList();
-                Storage.saveLocalStorage();
+                storage.saveLocalStorage();
             }
         });
 
         this.deleteBtn.addEventListener("click", () => {
             if (Validator.deleteBtnValidation()) {
-                Storage.deleteStudent(parseInt(this.sno.value));
+                storage.deleteStudent(parseInt(this.sno.value));
                 this.sortList();
-                Storage.saveLocalStorage();
+                storage.saveLocalStorage();
             }
         });
 
@@ -44,16 +44,16 @@ export default class EventHandler {
 
             let result = [];
             if (select.value === "sno") {
-                result = Storage.students
+                result = storage.students
                     .filter(student => student.sno === parseInt(input));
             } else if (select.value === "name") {
-                result = (input => Storage.students.filter(
+                result = (input => storage.students.filter(
                     student => student.sname.includes(input)
                 ))(input);
             }
 
             if (input === "") {
-                result = [...Storage.getStudents()];
+                result = [...storage.getStudents()];
             }
 
             this.renderList(result);
@@ -61,22 +61,22 @@ export default class EventHandler {
     }
 
     sortList() {
-        Storage.updateRank();//updateRank() includes sortByRank().
+        storage.updateRank();//updateRank() includes sortByRank().
 
         switch (this.sortSelect.value) {
             case "sno":
-                Storage.sortBySno();
+                storage.sortBySno();
                 break;
             case "name":
-                Storage.sortByName();
+                storage.sortByName();
                 break;
             case "rank":
                 //Do nothing; updateRank() includes sortByRank().
                 break;
             default:
-                Storage.updateRank();
+                storage.updateRank();
         }
-        this.renderList(Storage.students);
+        this.renderList(storage.students);
     }
 
     renderList(result) {
