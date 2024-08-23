@@ -25,7 +25,7 @@ export default class EventHandler {
                     parseInt(this.math.value),
                     parseInt(this.english.value)
                 ));
-                this.updateList();
+                this.sortList();
                 storage.saveLocalStorage();
             }
         });
@@ -33,7 +33,7 @@ export default class EventHandler {
         this.deleteBtn.addEventListener("click", () => {
             if (Validator.deleteBtnValidation()) {
                 storage.deleteStudent(parseInt(this.sno.value));
-                this.updateList();
+                this.sortList();
                 storage.saveLocalStorage();
             }
         });
@@ -56,24 +56,11 @@ export default class EventHandler {
                 result = [...storage.getStudents()];
             }
 
-            /* 아름다운 매핑 방식*/
-            this.table.innerHTML =
-                result.map(student =>
-                    `<tr>
-                        <td>${student.sno}</td>
-                        <td>${student.sname}</td>
-                        <td>${student.korean}</td>
-                        <td>${student.english}</td>
-                        <td>${student.math}</td>
-                        <td>${student.getTotal()}</td>
-                        <td>${student.getAverage()}</td>
-                        <td>${student.rank}</td>
-                    </tr>`
-                ).join("");
+            this.renderList(result);
         });
     }
 
-    updateList() {
+    sortList() {
         storage.updateRank();//updateRank() includes sortByRank().
 
         switch (this.sortSelect.value) {
@@ -89,20 +76,22 @@ export default class EventHandler {
             default:
                 storage.updateRank();
         }
+        this.renderList(storage.students);
+    }
 
+    renderList(result) {
         /* 아름다운 매핑 방식*/
-        this.table.innerHTML =
-            storage.students.map(student =>
-                `<tr>
-                    <td>${student.sno}</td>
-                    <td>${student.sname}</td>
-                    <td>${student.korean}</td>
-                    <td>${student.english}</td>
-                    <td>${student.math}</td>
-                    <td>${student.getTotal()}</td>
-                    <td>${student.getAverage()}</td>
-                    <td>${student.rank}</td>
-                </tr>`
-            ).join("");
+        this.table.innerHTML = result.map(student =>
+            `<tr>
+                <td>${student.sno}</td>
+                <td>${student.sname}</td>
+                <td>${student.korean}</td>
+                <td>${student.english}</td>
+                <td>${student.math}</td>
+                <td>${student.getTotal()}</td>
+                <td>${student.getAverage()}</td>
+                <td>${student.rank}</td>
+            </tr>`
+        ).join("");
     }
 }

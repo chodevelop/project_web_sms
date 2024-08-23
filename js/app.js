@@ -12,4 +12,4 @@ storage.loadLocalStorage();
 // storage.addStudent(new Student(13, '최준식', 95, 85, 88));
 // storage.saveLocalStorage();
 
-eventHandler.updateList();
+eventHandler.sortList();
